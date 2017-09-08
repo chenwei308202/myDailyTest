@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
+<mapper namespace="com.cw.user.dao.UserDao">  
+    <resultMap id="BaseResultMap" type="com.cw.user.model.User">  
+        <result column="user_name" property="username" />  
+        <result column="password" property="password" />  
+    </resultMap>  
+  <sql id="Base_Column_List" >  
+    user_name, pass_word  
+  </sql>  
+  <select id="selectOne" resultMap="BaseResultMap" parameterType="int" >  
+    select   
+    <include refid="Base_Column_List" />  
+    from user_t  t
+    where t.id = #{id,jdbcType=VARCHAR}  
+  </select>  
+  
+  <insert id="batchInsertPerTable" parameterType="com.cw.user.model.UserInfo">
+  	insert into user_${tid}  VALUES
+  	 (#{id},#{username},#{password},#{age},#{tid})
+  </insert>
+  
+  
+  <insert id="batchInsert" parameterType="java.util.LinkedList">
+  	insert into user_t  VALUES
+  	<foreach collection="list" item="user" separator=",">
+  	 (#{user.id},#{user.username},#{user.password},#{user.age})
+  	</foreach>
+  </insert>
+  
+  
+  
+</mapper> 
