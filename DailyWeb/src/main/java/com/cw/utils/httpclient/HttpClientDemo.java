@@ -1,4 +1,4 @@
-package com.cw.httpclient;
+package com.cw.utils.httpclient;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * httpπ§æﬂ¿‡
  * Created by chenwei01 on 2018/3/22.
  */
 public class HttpClientDemo {
