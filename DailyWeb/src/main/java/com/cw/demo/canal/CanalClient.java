@@ -52,6 +52,16 @@ public class CanalClient {
                             }else if (row.getEventType()==CanalEntry.EventType.UPDATE){
                                 //具体业务操作
                                 System.out.println(dataMap);
+                            }else if (row.getEventType()==CanalEntry.EventType.DELETE){
+                                List<CanalEntry.Column> beforeColumnsList = rowdata.getBeforeColumnsList();
+                                for (CanalEntry.Column column : beforeColumnsList) {
+                                    if ("id".equals(column.getName()) ) {
+                                        //具体业务操作
+                                        System.out.println("删除的id："+ column.getValue());
+
+                                    }
+
+                                }
                             }else {
                                 System.out.println("其他操作类型不做处理");
                             }
