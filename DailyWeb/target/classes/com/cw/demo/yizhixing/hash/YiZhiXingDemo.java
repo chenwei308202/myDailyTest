@@ -63,6 +63,8 @@ public class YiZhiXingDemo {
 
        for (Object obj:mapTest.keySet()){
            Integer index= HashUtil.hash((String) obj);
+
+           // 获取 大于key的hash值的第一台服务器 ，若取不到，则取 第一台服务器 --start
            SortedMap<Integer ,ServerNode> sortedMap = map.tailMap(index);
            Integer key=0;
            if (sortedMap==null||sortedMap.size()==0){
@@ -72,6 +74,9 @@ public class YiZhiXingDemo {
 
            }
            ServerNode node =map.get(key);
+
+           // 获取 大于key的hash值的第一台服务器 ，若取不到，则取 第一台服务器  --end
+
            node.getData().put(index,mapTest.get(obj));
            System.out.println("key 为 " + obj + " index=" + index + " ，路由到了" + node.getServerAddr() + "索引为" + node.getIndex() + "的节点上，存储" + mapTest.get(obj));
        }
@@ -85,6 +90,7 @@ public class YiZhiXingDemo {
 
         for (Object obj:mapTest.keySet()){
             Integer index= HashUtil.hash((String) obj);
+            // 获取 大于key的hash值的第一台服务器 ，若取不到，则取 第一台服务器 --start
             SortedMap<Integer ,ServerNode> sortedMap = map.tailMap(index);
             Integer key=0;
             if (sortedMap==null||sortedMap.size()==0){
@@ -94,11 +100,12 @@ public class YiZhiXingDemo {
 
             }
             ServerNode node =map.get(key);
+            // 获取 大于key的hash值的第一台服务器 ，若取不到，则取 第一台服务器  --end
+
             System.out.println("key 为 "+obj+" index="+index+" ，从集群中取值"+ node.getServerAddr()+" 取得的结果为 "+node.getData().get(index));
         }
 
 
     }
-
 
 }

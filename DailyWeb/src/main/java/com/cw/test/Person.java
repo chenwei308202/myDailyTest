@@ -80,6 +80,7 @@ public class Person  implements Comparable<Person>{
 
         Collections.sort(list);
         System.out.println(list);
+
     }
 
 
