@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 红黑树 实现
+ * 二叉树 实现
  * Created by chenwei01 on 2018/4/20.
  */
-public class RedBlackTree<K,V> {
+public class Tree<K,V> {
 
     /**
      *集合数量
@@ -24,7 +24,17 @@ public class RedBlackTree<K,V> {
         return  getEntry(k)==null?null:getEntry(k).value;
     }
 
-    public  Entry<K,V> getEntry(K k){
+    public V remove(K k) {
+        Entry<K,V> temp= getEntry(k);
+        if (temp == null) {
+            return null;
+        }
+        V value=temp.value;
+        deleteEntry(temp);
+        return value;
+    }
+
+    Entry<K,V> getEntry(K k){
         if (k==null){
             throw  new IllegalArgumentException("key is null");
         }
@@ -42,6 +52,40 @@ public class RedBlackTree<K,V> {
         }
         return null;
     }
+
+    Entry<K,V> deleteEntry(Entry<K, V> entry) {
+        Entry<K, V> t=entry;
+        if (t != null) {
+            Entry<K, V> target=null;
+            //如果将要移除的节点不是叶子节点，则找出后继节点
+            if (t.left!=null || t.right!=null){
+                if (t.right!=null){
+                    //则后继节点为右侧最左边的孩子节点
+                    target=  t.right;
+                    while (target.left!=null){
+                        target=target.left;
+                    }
+                    return target;
+                }else {
+                    //则后继节点在不在一条右斜线向上数的第一个父节点
+                    target  =t.parent;
+                    Entry<K, V> sub  =t;
+                    while (target!=null&& target.right==sub){
+                        sub=target;
+                        target=target.parent;
+                    }
+                    return target;
+                }
+            }
+            t=target;
+            
+
+            
+        }
+
+        return null;
+    }
+
 
     public V put(K k,V v){
         if (k==null){
@@ -91,7 +135,7 @@ public class RedBlackTree<K,V> {
     }
 
     public static void main(String[] args) {
-        RedBlackTree tree=new RedBlackTree();
+        Tree tree=new Tree();
         Map map = new HashMap();
         map.put("123","345");
         map.put("sf","df");
