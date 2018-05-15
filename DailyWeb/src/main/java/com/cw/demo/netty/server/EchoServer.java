@@ -12,7 +12,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
  * @author  chenwei
- * Created by chenwei01 on 2018/4/24.
+ * Created by chenwei01 on 2017/4/24.
  * 1.创建ServerBootstrap实例来引导绑定和启动服务器
  * 2.创建NioEventLoopGroup对象来处理事件，如接受新连接、接收数据、写数据等等
  * 3.指定InetSocketAddress，服务器监听此端口

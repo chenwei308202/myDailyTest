@@ -7,7 +7,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
  * 服务端发送时间 示例
- * Created by chenwei01 on 2018/4/27.
+ * Created by chenwei01 on 2017/4/27.
  */
 public class TimeServerHandler extends ChannelInboundHandlerAdapter{
 

@@ -20,7 +20,7 @@ import java.nio.charset.Charset;
 
 /**
  * @author  chenwei
- * Created by chenwei01 on 2018/4/25.
+ * Created by chenwei01 on 2017/4/25.
  *  Netty使用多个Channel Handler来对事件处理的分离，因为可以很容的添加、更新、删除业务逻辑处理handler
  *  它的每个方法都可以被重写，它的所有的方法中只有channelRead方法是必须要重写的。
  */
