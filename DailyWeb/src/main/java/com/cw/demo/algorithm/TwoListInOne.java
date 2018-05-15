@@ -1,4 +1,4 @@
-package com.cw.demo.Algorithm;
+package com.cw.demo.algorithm;
 
 
 import java.util.ArrayList;
