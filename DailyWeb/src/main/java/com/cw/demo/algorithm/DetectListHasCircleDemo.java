@@ -131,6 +131,9 @@ public class DetectListHasCircleDemo {
         list.put(nodeFive);
         list.put(nodeFix);
         list.put(nodeSeven);
+        list.put(nodeEight);
+        //添加第四个节点，则形成环
+        list.put(nodeFour);
         System.out.println(list);
 
         LinkedList list1=new LinkedList();
