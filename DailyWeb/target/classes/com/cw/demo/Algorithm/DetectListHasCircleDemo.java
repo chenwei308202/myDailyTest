@@ -1,8 +1,19 @@
 package com.cw.demo.algorithm;
 
 
+import java.util.LinkedList;
+
 /**
  * 检测链表是否有环
+ *
+ *
+ *
+ *
+ *                                      *
+ *                                  *        *
+ *                                   *       *
+ *                   *  * * * * * * * * * * *
+ *
  *
  * @author chenwei
  * @create 2018-05-17 14:28
@@ -14,9 +25,9 @@ public class DetectListHasCircleDemo {
      * 链表 linkedList结构
      */
     static class NodeList{
-
+        //头指针
         private Node first;
-
+        //尾指针
         private Node last;
 
         private int size;
@@ -50,8 +61,13 @@ public class DetectListHasCircleDemo {
         }
 
 
-
+        /**
+         * 节点
+         */
         static class Node{
+            /**
+             * 下一个节点指针
+             */
             public Node next;
 
             public int value;
@@ -70,20 +86,23 @@ public class DetectListHasCircleDemo {
     public static boolean isLoop(NodeList nodeList){
 
         NodeList.Node first = nodeList.getFirst();
-
+        //慢步长从第一个节点开始
         NodeList.Node nodeSlow=first;
+        //快步长从第二个节点开始
         NodeList.Node nodeFast=first.next;
 
+        //当有一个为null，说明没有环
         while (nodeSlow!=null && nodeFast!=null){
+            //慢步长进一位
             nodeSlow=nodeSlow.next;
-
+            //快步长 进两位，同时为了防止空指针
             if (nodeFast.next!=null){
                 nodeFast=nodeFast.next.next;
             }else {
                 //发现下一个node节点为null，说明不存在环
                 return false;
             }
-
+            //若node 地址相同，则存在环
             if (nodeFast==nodeSlow){
                 return true;
             }
@@ -112,7 +131,12 @@ public class DetectListHasCircleDemo {
         list.put(nodeFive);
         list.put(nodeFix);
         list.put(nodeSeven);
+        list.put(nodeEight);
+        //添加第四个节点，则形成环
+        list.put(nodeFour);
         System.out.println(list);
+
+        LinkedList list1=new LinkedList();
         System.out.println("this list has a circle or not ?"+isLoop(list));
     }
 

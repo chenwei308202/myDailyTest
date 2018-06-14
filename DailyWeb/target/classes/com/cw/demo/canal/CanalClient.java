@@ -13,13 +13,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by chenwei01 on 2018/4/8.
+ * Created by chenwei01 on 2017/4/9.
  */
 public class CanalClient {
 
     public static void main(String[] args) {
-        while (true){
-            CanalConnector connector= CanalConnectors.newSingleConnector(new InetSocketAddress(AddressUtils.getHostIp(),11111),"example","canal","canal");
+        while (true) {
+            //连接canal
+            CanalConnector connector = CanalConnectors.newSingleConnector(new InetSocketAddress(AddressUtils.getHostIp(), 11111), "example", "canal", "canal");
             connector.connect();
             //订阅 监控的 数据库.表
             connector.subscribe("demo_db.user_tab");
@@ -28,41 +29,38 @@ public class CanalClient {
 
             long batchId = msg.getId();
             int size = msg.getEntries().size();
-            if (batchId<0||size==0){
+            if (batchId < 0 || size == 0) {
                 System.out.println("没有消息，休眠5秒");
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }else {
+            } else {
                 //
-                CanalEntry.RowChange row=null;
+                CanalEntry.RowChange row = null;
                 for (CanalEntry.Entry entry : msg.getEntries()) {
                     try {
-                        row= CanalEntry.RowChange.parseFrom(entry.getStoreValue());
-                            List<CanalEntry.RowData> rowDatasList = row.getRowDatasList();
-                        for (CanalEntry.RowData rowdata: rowDatasList){
+                        row = CanalEntry.RowChange.parseFrom(entry.getStoreValue());
+                        List<CanalEntry.RowData> rowDatasList = row.getRowDatasList();
+                        for (CanalEntry.RowData rowdata : rowDatasList) {
                             List<CanalEntry.Column> afterColumnsList = rowdata.getAfterColumnsList();
-                            Map<String,Object> dataMap= transforListToMap(afterColumnsList);
-                            if (row.getEventType()==CanalEntry.EventType.INSERT)
-                            {
+                            Map<String, Object> dataMap = transforListToMap(afterColumnsList);
+                            if (row.getEventType() == CanalEntry.EventType.INSERT) {
                                 //具体业务操作
                                 System.out.println(dataMap);
-                            }else if (row.getEventType()==CanalEntry.EventType.UPDATE){
+                            } else if (row.getEventType() == CanalEntry.EventType.UPDATE) {
                                 //具体业务操作
                                 System.out.println(dataMap);
-                            }else if (row.getEventType()==CanalEntry.EventType.DELETE){
+                            } else if (row.getEventType() == CanalEntry.EventType.DELETE) {
                                 List<CanalEntry.Column> beforeColumnsList = rowdata.getBeforeColumnsList();
                                 for (CanalEntry.Column column : beforeColumnsList) {
-                                    if ("id".equals(column.getName()) ) {
+                                    if ("id".equals(column.getName())) {
                                         //具体业务操作
-                                        System.out.println("删除的id："+ column.getValue());
-
+                                        System.out.println("删除的id：" + column.getValue());
                                     }
-
                                 }
-                            }else {
+                            } else {
                                 System.out.println("其他操作类型不做处理");
                             }
 
@@ -80,17 +78,13 @@ public class CanalClient {
         }
     }
 
-    public  static Map<String,Object> transforListToMap(List<CanalEntry.Column> afterColumnsList){
-        Map map=new HashMap();
-        if (afterColumnsList!=null && afterColumnsList.size()>0){
+    public static Map<String, Object> transforListToMap(List<CanalEntry.Column> afterColumnsList) {
+        Map map = new HashMap();
+        if (afterColumnsList != null && afterColumnsList.size() > 0) {
             for (CanalEntry.Column column : afterColumnsList) {
-               map.put(column.getName(),column.getValue());
+                map.put(column.getName(), column.getValue());
             }
-
-
         }
-
-
         return map;
     }
 

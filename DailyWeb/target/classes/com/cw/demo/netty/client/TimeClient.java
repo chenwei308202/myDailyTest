@@ -21,7 +21,7 @@ ByteToMessageDecoder是ChannelInboundHandler的一个实现，它使得处理碎
         如果decode()将对象添加到out，则意味着解码器成功地解码了消息。 ByteToMessageDecoder将丢弃累积缓冲区的读取部分。要记住，不需要解码多个消息。 ByteToMessageDecoder将继续调用decode()方法，直到它没有再有任何东西添加。
 */
 /**
- * Created by chenwei01 on 2018/4/27.
+ * Created by chenwei01 on 2017/4/27.
  */
 public class TimeClient {
 

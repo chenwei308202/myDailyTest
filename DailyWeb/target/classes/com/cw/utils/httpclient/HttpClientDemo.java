@@ -1,57 +1,43 @@
 package com.cw.utils.httpclient;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * http¹¤¾ßÀà
- * Created by chenwei01 on 2018/3/22.
+ * httpclient å·¥å…·ç±»
+ * Created by chenwei on 2015/3/22.
  */
 public class HttpClientDemo {
 
-    /**
-     * http  getÇëÇó
-     */
-    public void httpGet(){
-        HttpClient client= HttpClients.createDefault();
-        HttpGet httpGet=new HttpGet("www.baidu.com");
-        try {
-            HttpResponse response = client.execute(httpGet);
-            if (response.getStatusLine().getStatusCode()==200){
-
-                String content = EntityUtils.toString(response.getEntity(), "UTF-8");
-                System.out.println(content);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
      /**
-     * http  getÇëÇó ´ø²ÎÊı
+     * http  get
      */
     public void httpGetWithParam(){
         try {
-            URI url = new URIBuilder("www.baidu.com").setParameter("name","chenwei").build();
+            //ä¸å¸¦å‚æ•°çš„getè¯·æ±‚å¯ä»¥ç›´æ¥ä¼ é€’Stringç±»å‹å‚æ•°ã€‚æ³¨æ„urlçš„æ­£ç¡®æ€§ï¼Œä»¥httpå¼€å¤´
+            // String url="www.baidu.com";
+            URI url = new URIBuilder("http://www.baidu.com").setParameter("name","chenwei").build();
             HttpClient client= HttpClients.createDefault();
 
             HttpGet httpGet=new HttpGet(url);
             HttpResponse response = client.execute(httpGet);
-            if (response.getStatusLine().getStatusCode()==200){
+            if (response.getStatusLine().getStatusCode()==HttpStatus.SC_OK){
 
                 String content = EntityUtils.toString(response.getEntity(), "UTF-8");
                 System.out.println(content);
@@ -61,48 +47,26 @@ public class HttpClientDemo {
         }
     }
 
-  /**
-     * http  postÇëÇó
-     */
-    public void httpPost(){
-            HttpClient client= HttpClients.createDefault();
-        try {
-
-            HttpPost httpPost=new HttpPost("www.baidu.com");
-            httpPost.setHeader("User-Agent","Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36");
-            HttpResponse response = client.execute(httpPost);
-
-            if (response.getStatusLine().getStatusCode()==200){
-
-                String content = EntityUtils.toString(response.getEntity(), "UTF-8");
-                System.out.println(content);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-/**
-     * http  postÇëÇó ´ø²ÎÊı
+    /**
+     * http  post
      */
     public void httpPostParam(){
             HttpClient client= HttpClients.createDefault();
         try {
-
-            HttpPost httpPost=new HttpPost("www.baidu.com");
+            //æ³¨æ„urlçš„æ­£ç¡®æ€§ï¼Œä»¥httpå¼€å¤´
+            HttpPost httpPost=new HttpPost("http://www.baidu.com");
+            //è®¾ç½®heder
             httpPost.setHeader("User-Agent","Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36");
             List<NameValuePair> parameters = new ArrayList<NameValuePair>();
-            parameters.add(new BasicNameValuePair("scope", "project"));
-            parameters.add(new BasicNameValuePair("q", "java"));
-            // ¹¹ÔìÒ»¸öform±íµ¥Ê½µÄÊµÌå
-            UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(parameters);
-            // ½«ÇëÇóÊµÌåÉèÖÃµ½httpPost¶ÔÏóÖĞ
+            parameters.add(new BasicNameValuePair("name", "chenwei"));
+            parameters.add(new BasicNameValuePair("job", "java"));
+            //å°†å‚æ•°ç¼–ç æˆé”®å€¼å¯¹ï¼Œè‹¥ä¸ä¼ å­—ç¬¦ç¼–ç ï¼Œåˆ™é»˜è®¤ä¸ºiso_8859_1
+            UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(parameters,"UTF-8");
             httpPost.setEntity(formEntity);
 
             HttpResponse response = client.execute(httpPost);
 
-            if (response.getStatusLine().getStatusCode()==200){
-
+            if (response.getStatusLine().getStatusCode()== HttpStatus.SC_OK){
                 String content = EntityUtils.toString(response.getEntity(), "UTF-8");
                 System.out.println(content);
             }
@@ -111,6 +75,42 @@ public class HttpClientDemo {
         }
     }
 
+    /**
+     * http  post
+     */
+    public void httpPostParamWithJson(){
+        HttpClient client= HttpClients.createDefault();
+        try {
+            //æ³¨æ„urlçš„æ­£ç¡®æ€§ï¼Œä»¥httpå¼€å¤´
+            HttpPost httpPost=new HttpPost("http://www.baidu.com");
+            //è®¾ç½®heder
+            httpPost.setHeader("User-Agent","Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36");
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put("name","chen");
+            jsonObject.put("job","javer");
+            //å°†å‚æ•°ç¼–ç æˆé”®å€¼å¯¹ï¼Œè‹¥ä¸ä¼ å­—ç¬¦ç¼–ç ï¼Œåˆ™é»˜è®¤ä¸ºiso_8859_1
+            StringEntity stringEntity = new StringEntity (jsonObject.toString());
+            stringEntity.setContentEncoding("UTF-8");
+            //å‘é€jsonæ•°æ®éœ€è¦è®¾ç½®contentType
+            stringEntity.setContentType("application/json");
+            httpPost.setEntity(stringEntity);
+            HttpResponse response = client.execute(httpPost);
+
+            if (response.getStatusLine().getStatusCode()== HttpStatus.SC_OK){
+                String content = EntityUtils.toString(response.getEntity(), "UTF-8");
+                System.out.println(content);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public static void main(String[] args) {
+        HttpClientDemo demo=new HttpClientDemo();
+        demo.httpPostParamWithJson();
+    }
 
 
 

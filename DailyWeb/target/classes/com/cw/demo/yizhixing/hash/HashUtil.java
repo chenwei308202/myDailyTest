@@ -2,7 +2,7 @@ package com.cw.demo.yizhixing.hash;
 
 /**
  * hash 工具类
- * Created by chenwei01 on 2018/4/18.
+ * Created by chenwei01 on 2017/1/17.
  */
 public class HashUtil {
 
@@ -23,7 +23,9 @@ public class HashUtil {
         hash += hash << 3;
         hash ^= hash >> 17;
         hash += hash << 5;
-        return hash<0?Math.abs(hash):hash;
+        hash= hash<0?Math.abs(hash):hash;
+        //对2的32次方取余，实际上这里有些疑惑，为什么是这个数，是为了增大离散吗？
+        return (int)(hash % Math.pow(2,32));
     }
 
 
