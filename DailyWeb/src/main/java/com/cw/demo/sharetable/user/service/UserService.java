@@ -11,4 +11,6 @@ public interface UserService {
 	
 	public boolean batchAddUserPerTable(int i);
 
+	public void addUser(String where);
+
 }

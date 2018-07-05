@@ -1,13 +1,13 @@
 package com.cw.demo.sharetable.user.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.cw.demo.sharetable.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cw.demo.sharetable.user.service.UserService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -30,5 +30,15 @@ public class UserController {
 		
 		return "user";
 	}
+	@RequestMapping("/niuBiXiaoHui")
+	public void insert(HttpServletRequest request,HttpServletResponse response,String  where) throws Exception {
+        response.setCharacterEncoding("utf-8");
+
+		System.out.println("地里位置：——————"+where);
+
+
+
+	}
+
 	
 }

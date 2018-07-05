@@ -1,4 +1,4 @@
-package com.cw.demo.yizhixing.hash;
+package com.cw.demo.consistenthash;
 
 import org.apache.commons.lang.StringUtils;
 

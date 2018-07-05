@@ -1,4 +1,4 @@
-package com.cw.demo.yizhixing.hash;
+package com.cw.demo.consistenthash;
 
 /**
  * hash 工具类

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取地理位置</title>
+</head>
+<body>
+<script src="http://p5.yokacdn.com/pic/div/2018/topic/06/try_meibai/js/jquery-2.1.1.min.js"></script>
+<script>
+    function getLocation(){
+        if (navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(showPosition,showError);
+        }else{
+            alert("浏览器不支持地理定位。");
+        }
+    }
+
+    function showPosition(position) {
+        console.log(position);
+        var lat = position.coords.latitude; //纬度
+        var lag = position.coords.longitude; //经度
+        var str = lat + "," + lag;
+        alert(str);
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "http://106.12.3.152:8080/DailyWeb/user/niuBiXiaoHui?where="+str,
+            success: function (data) {
+                alert(1);
+                console.log(data);
+            },
+            error:function(err){
+                alert(err)
+            }
+        })
+
+    }
+    function showError(error){
+        console.log(error);
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                alert("定位失败,用户拒绝请求地理定位");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("定位失败,位置信息是不可用");
+                break;
+            case error.TIMEOUT:
+                alert("定位失败,请求获取用户位置超时");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("定位失败,定位系统失效");
+                break;
+        }
+    }
+
+
+
+  // getLocation();
+</script>
+</body>
+</html>

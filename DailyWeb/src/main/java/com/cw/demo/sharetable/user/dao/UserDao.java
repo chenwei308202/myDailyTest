@@ -1,13 +1,11 @@
 package com.cw.demo.sharetable.user.dao;
 
-import java.util.List;
-
-import org.springframework.stereotype.Repository;
-
 import com.cw.demo.sharetable.user.model.User;
 import com.cw.demo.sharetable.user.model.UserInfo;
 
-@Repository
+import java.util.List;
+
+//@Repository
 public interface UserDao {
 
 	User selectOne(int id);
@@ -15,4 +13,6 @@ public interface UserDao {
 	void batchInsert( List<User> users);
 	
 	void batchInsertPerTable(UserInfo user);
+
+
 }

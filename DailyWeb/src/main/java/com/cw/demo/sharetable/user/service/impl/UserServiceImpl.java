@@ -1,19 +1,18 @@
 package com.cw.demo.sharetable.user.service.impl;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.cw.demo.sharetable.datasource.DataSourceThreadLocal;
 import com.cw.demo.sharetable.datasource.HashUtils;
 import com.cw.demo.sharetable.user.dao.UserDao;
 import com.cw.demo.sharetable.user.model.User;
 import com.cw.demo.sharetable.user.model.UserInfo;
 import com.cw.demo.sharetable.user.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 
 
@@ -106,6 +105,10 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public void addUser(String where) {
 	}
 
 	public static void main(String[] args) {
